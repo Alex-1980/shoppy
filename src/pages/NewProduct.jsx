@@ -1,27 +1,32 @@
 import React, { useState } from "react";
-import Button from '../components/ui/Button'
+import Button from "../components/ui/Button";
+import { uploadImage } from "../api/uploader";
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === "file") {
+    if (name === 'file') {
       setFile(files && files[0]);
       return;
     }
     setProduct((product) => ({ ...product, [name]: value }));
   };
-
   const handleSubmit = (e) => {
-    e.preventDefult();
-
+    e.preventDefault();
+    setIsUploading(true);
+    uploadImage(file) //
+      .then((url) => {
+        console.log(url);
+      })
   };
 
   return (
     <section>
-      {file && <img src={URL.createObjectURL(file)} alt='local file' />}
+      {file && <img src={URL.createObjectURL(file)} alt="local file" />}
       <form onSubmit={handleSubmit}>
         <input
           type="file"
@@ -70,7 +75,7 @@ export default function NewProduct() {
           required
           onChange={handleChange}
         />
-        <Button text={'Product Register'} />
+        <Button text={"Product Register"} />
       </form>
     </section>
   );
