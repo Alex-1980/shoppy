@@ -21,6 +21,4 @@ Shoppy is a full stack application using React and Firebase that allows users to
 ## Getting Started
 
 - Install all dependencies (using the `npm install` command).
-- In the project directory, you can run:
-
-### `npm start`
+- And you can run `npm start`
